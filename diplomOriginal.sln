@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "diplomOriginal", "diplomOriginal\diplomOriginal.csproj", "{FEAE889D-88E7-46F3-AC59-BAC9DAB706B3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "diplomSiteTests", "diplomSiteTests\diplomSiteTests.csproj", "{D9D8316F-9BBC-4896-9847-F3274B99428A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FEAE889D-88E7-46F3-AC59-BAC9DAB706B3} = {FEAE889D-88E7-46F3-AC59-BAC9DAB706B3}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FEAE889D-88E7-46F3-AC59-BAC9DAB706B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEAE889D-88E7-46F3-AC59-BAC9DAB706B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEAE889D-88E7-46F3-AC59-BAC9DAB706B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEAE889D-88E7-46F3-AC59-BAC9DAB706B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D9D8316F-9BBC-4896-9847-F3274B99428A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D9D8316F-9BBC-4896-9847-F3274B99428A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D9D8316F-9BBC-4896-9847-F3274B99428A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D9D8316F-9BBC-4896-9847-F3274B99428A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D260F724-1152-440C-AD03-200294697BA1}
+	EndGlobalSection
+EndGlobal

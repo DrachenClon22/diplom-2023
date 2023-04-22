@@ -1,0 +1,56 @@
+﻿@model LoginViewModel
+@{
+    ViewData["Title"] = "Регистрация";
+}
+
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <div class="row align-items-center g-lg-5 py-5">
+        <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-4 fw-bold lh-1 text-body-emphasis mb-3">Vertically centered hero sign-up form</h1>
+            <p class="col-lg-10 fs-4">Below is an example form built entirely with Bootstrap’s form controls. Each required form group has a validation state that can be triggered by attempting to submit the form without completing it.</p>
+        </div>
+        <div class="col-md-10 mx-auto col-lg-5">
+            
+            <!-- Disable button if passwords do not match -->
+            <script>
+                function OnPasswordsMatch() {
+                    var result = checkFieldsByName(document.getElementById("register-form"), 'ipf1', 'ipf2');
+                    document.getElementById('register-button').disabled = !result;
+                }
+            </script>
+
+            <form asp-controller="Register" asp-action="RegisterMe" onload="OnPasswordsMatch();" onclick="changeTextInElement('wrong-password-text-here', '');" id="register-form" onsubmit="return OnSubmit();" method="post" class="shadow p-4 p-md-5 bg-body-tertiary">
+                
+                @if (!string.IsNullOrEmpty(ViewData["RegisterError"]?.ToString() ?? null))
+                {
+                    <strong class="text-danger">@ViewData["RegisterError"]</strong>
+                    <hr />
+                }
+
+                <div class="form-floating mb-3">
+                    <input required asp-for=@Model.Email type="email" class="form-control" placeholder="name@example.com">
+                    <label asp-for=@Model.Email>Электронная почта</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input required asp-for=@Model.Password onkeyup="OnPasswordsMatch();" type="password" class="form-control" id="ipf1" placeholder="Придумайте пароль">
+                    <label asp-for=@Model.Password>Пароль</label>
+                </div>
+                <div class="form-floating mb-3">
+                    <input required onkeyup="OnPasswordsMatch();" type="password" class="form-control" id="ipf2" placeholder="Повторите пароль">
+                    <label for="floatingPassword">Повторите пароль</label>
+                </div>
+                <div id="wrong-password-text-here" class="text-danger text-center"></div>
+                <div class="checkbox mb-3">
+                    <label>
+                        <input type="checkbox" onclick="ShowPassword('ipf1');ShowPassword('ipf2')" value="remember-me"> Показать пароль
+                    </label>
+                </div>
+                <button class="w-100 btn btn-lg btn-primary" disabled id="register-button" type="submit">
+                    Зарегистрироваться
+                </button>
+                <hr class="my-4">
+                <small class="text-body-secondary">Уже есть аккаунт? <a type="button" href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Войти</a></small>
+            </form>
+        </div>
+    </div>
+</div>

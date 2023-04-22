@@ -1,0 +1,26 @@
+﻿@model ContactsViewModel
+@{
+    ViewData["Title"] = "Обратная связь";
+}
+
+<div class="container px-4 py-5 my-5">
+    <form method="post" asp-controller="Contacts">
+        <h1 class="display-5 fw-bold text-body-emphasis text-center">Обратная связь</h1>
+        <div class="text-center">@ViewData["Message"]</div>
+        <div class="col-lg-6 mx-auto">
+            <div class="form-group lead mb-2">
+                <label asp-for=@Model.Email>Электронная почта</label>
+                <input asp-for=@Model.Email name="email" type="email" class="form-control" id="email" placeholder="Электронная почта" required>
+            </div>
+
+            <div class="form-group lead mb-5">
+                <label asp-for=@Model.Message>Сообщение</label>
+                <textarea asp-for=@Model.Message name="message" class="form-control" id="message" rows="5" placeholder="Введите сообщение" required></textarea>
+            </div>
+        </div>
+
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+            <button type="submit" class="btn btn-outline-secondary btn-lg px-4">Отправить</button>
+        </div>
+    </form>
+</div>
