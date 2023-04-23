@@ -1,6 +1,7 @@
 ﻿using diplomOriginal.Controllers;
 using diplomOriginal.Models;
 using diplomOriginal.Modules;
+using diplomOriginal.Login;
 using MySqlConnector;
 
 namespace diplomOriginal.Modules

@@ -2,6 +2,91 @@
 	ViewData["Title"] = "Личный кабинет";
 }
 
-<div class="text-center">
-	Добро пожаловать обратно, @Context.User.Identity!.Name !
+<div class="container-xl px-4 py-5 my-5">
+    <h2 class="display-5 fw-bold text-body-emphasis">Добро пожаловать, @(Context.User.Identity?.Name ?? "No name found, contact to administrator")</h2>
+
+    @if ((Context.User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value ?? "_").Equals(Role.ADMIN.ToString()))
+    {
+        <strong class="text-body-emphasis">Вы администратор</strong>
+    }
+
+    <hr class="mt-0 mb-4">
+    <div class="row mx-auto">
+        <!-- Alert "site is in debug mode" -->
+        <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show mb-3 mx-auto" role="alert">
+            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+            <div>
+                <button type="button" data-bs-dismiss="alert" class="btn-close" aria-label="Close"></button>
+                <strong>ВНИМАНИЕ!</strong> Раздел не готов! Функциональность не гарантирована!
+            </div>
+        </div>
+        <!-- Change info form -->
+        <div class="col-lg-6 mx-auto">
+            <div class="card mb-4 mx-auto">
+                <div class="card-header">Изменить информацию об аккаунте</div>
+                <div class="card-body">
+                    <form>
+                        <!-- Form Username-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inputUsername">Имя на сайте</label>
+                            <input class="form-control" id="inputUsername" type="text" placeholder="Введите свое имя" value="@(Context.User.Identity?.Name ?? "Error")">
+                        </div>
+                        @*<!-- Form Email-->
+                        <div class="mb-3">
+                        <label class="small mb-1" for="inputEmailAddress">Электронная почта</label>
+                        <input class="form-control" id="inputEmailAddress" type="email" placeholder="Введите адрес электронной почты" value="name@example.com">
+                        </div>*@
+                        <!-- Form Phone number-->
+                        @*<div class="mb-3">
+                            <label class="small mb-1" for="inputPhone">Номер телефона</label>
+                            <input class="form-control" id="inputPhone" type="tel" placeholder="Введите номер телефона" value="+7 999 123 45 67">
+                        </div>*@
+                        <!-- Save Button-->
+                        <button class="btn btn-primary" type="button">Сохранить изменения</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disable button if passwords do not match -->
+        <script>
+            function OnPasswordsMatch() {
+                var result = checkFieldsByName(document.getElementById("change-password-form"), 'inp_pass1_cabinet', 'inp_pass2_cabinet');
+                document.getElementById('change-password-button').disabled = !result;
+            }
+        </script>
+
+        <!-- Change password form -->
+        <div class="col-lg-6 mx-auto">
+            <div class="card mb-4 mx-auto">
+                <div class="card-header">Изменить пароль</div>
+                @if (!string.IsNullOrEmpty(ViewData["ChangePasswordError"]?.ToString() ?? null))
+                {
+                    <strong class="text-danger">@ViewData["ChangePasswordError"]</strong>
+                    <hr />
+                }
+                <div class="card-body">
+                    <form id="change-password-form">
+                        <!-- Form Username-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inp_pass1_cabinet">Введите новый пароль</label>
+                            <input required onkeyup="OnPasswordsMatch();" class="form-control" id="inp_pass1_cabinet" type="password" placeholder="Введите новый пароль">
+                        </div>
+                        <!-- Form Phone number-->
+                        <div class="mb-3">
+                            <label class="small mb-1" for="inp_pass2_cabinet">Повторите новый пароль</label>
+                            <input required onkeyup="OnPasswordsMatch();" class="form-control" id="inp_pass2_cabinet" type="password" placeholder="Повторите новый пароль">
+                        </div>
+                        <div class="checkbox mb-3">
+                            <label>
+                                <input type="checkbox" onclick="ShowPassword('inp_pass1_cabinet');ShowPassword('inp_pass2_cabinet')" value="remember-me"> Показать пароль
+                            </label>
+                        </div>
+                        <!-- Save Button-->
+                        <button class="btn btn-primary" id="change-password-button" disabled type="button">Сохранить изменения</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

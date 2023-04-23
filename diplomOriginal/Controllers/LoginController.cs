@@ -4,22 +4,6 @@ using diplomOriginal.Login;
 
 namespace diplomOriginal.Controllers
 {
-    public enum Role
-    {
-        USER = 0,
-        ADMIN,
-        WORKER
-    }
-    public class Person
-    {
-        public Person(string email, Role role) => (Email, Role) = (email, role);
-        public string Email { get; set; } = "noemail";
-        public string Name { get; set; } = "noname";
-        public string Password { get; set; } = "password";
-
-        public Role Role { get; set; } = Role.USER;
-    }
-
     public class LoginController : Controller
     {
         public IActionResult Index()
