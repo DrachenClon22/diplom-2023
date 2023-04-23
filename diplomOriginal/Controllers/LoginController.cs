@@ -11,8 +11,7 @@ namespace diplomOriginal.Controllers
             var user = HttpContext.User.Identity?.IsAuthenticated;
             if (user is not null && user.Value)
             {
-                // cabinet is not yet done
-                return Redirect("/");
+                return RedirectToAction("Index", "UserCabinet");
             }
 
             return View();
