@@ -39,7 +39,7 @@ namespace diplomOriginal.Controllers
             } else
             {
                 ViewData["ErrorMessage"] = $"Проверьте правильность логина и пароля";
-                return View("Index");
+                return RedirectToAction("Index");
             }
         }
     }
