@@ -51,7 +51,7 @@ app.MapControllerRoute(
 
 app.MapControllerRoute(
     name: "cabinet",
-    pattern: "cabinet",
+    pattern: "cabinet/{action}",
     defaults: new { controller = "UserCabinet", action = "Index" });
 
 app.MapControllerRoute(

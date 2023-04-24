@@ -28,17 +28,18 @@ namespace diplomOriginal.Controllers
             return Redirect("/");
         }
 
+        // postIp is for global Login form, not for Login Index
         [HttpPost]
         public IActionResult Identify(LoginViewModel account, string postIp)
         {
-            ViewData["ErrorMessage"] = string.Empty;
-            if (ModelState.IsValid &&
-                LoginManager.Login(HttpContext, account).Result)
+            TempData["ErrorMessage"] = null;
+
+            if (LoginManager.Login(HttpContext, account).Result)
             {
                 return Redirect(postIp ?? "/");
             } else
             {
-                ViewData["ErrorMessage"] = $"Проверьте правильность логина и пароля";
+                TempData["ErrorMessage"] = $"Проверьте правильность логина и пароля";
                 return RedirectToAction("Index");
             }
         }

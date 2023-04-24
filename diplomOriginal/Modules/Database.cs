@@ -49,6 +49,7 @@ public static class Database
 
                     using var command = new MySqlCommand($"UPDATE user SET password=\"{Encryption.EncodePasswordToBase64(newPassword)}\"" +
                         $"WHERE email=\"{account.Email}\"");
+                    command.Connection = connection;
                     await command.ExecuteNonQueryAsync();
 
                     return true;
@@ -77,8 +78,9 @@ public static class Database
                 {
                     await connection.OpenAsync();
 
-                    using var command = new MySqlCommand($"UPDATE user SET name=\"{newName}\"" +
+                    using var command = new MySqlCommand($"UPDATE user SET username=\"{newName}\"" +
                         $"WHERE email=\"{account.Email}\"");
+                    command.Connection = connection;
                     await command.ExecuteNonQueryAsync();
 
                     return true;
@@ -116,6 +118,7 @@ public static class Database
                     using var command = new MySqlCommand($"INSERT INTO user (email, password, role) VALUES " +
                         $"(\"{account.Email}\"," +
                         $" \"{Encryption.EncodePasswordToBase64(account.Password)}\", \"{Role.USER}\");", connection);
+                    command.Connection = connection;
                     await command.ExecuteNonQueryAsync();
 
                     return true;
@@ -141,14 +144,16 @@ public static class Database
         {
             await connection.OpenAsync();
 
-            using var command = new MySqlCommand($"SELECT email,password,role FROM user WHERE email=\"{email}\" " +
+            using var command = new MySqlCommand($"SELECT email,password,username,role FROM user WHERE email=\"{email}\" " +
                 $"AND password=\"{Encryption.EncodePasswordToBase64(password)}\";", connection);
+            command.Connection = connection;
             using var reader = await command.ExecuteReaderAsync();
 
             while (await reader.ReadAsync())
             {
                 string? inputEmail = reader.GetValue(0)?.ToString() ?? null;
-                string? inputRole = reader.GetValue(2)?.ToString() ?? null;
+                string? inputName = reader.GetValue(2)?.ToString() ?? "Unknown";
+                string? inputRole = reader.GetValue(3)?.ToString() ?? "USER";
 
                 await Console.Out.WriteLineAsync($"{email}|{inputRole}");
 
@@ -157,9 +162,9 @@ public static class Database
                     return null;
                 }
 
-                if (Enum.TryParse<Role>(inputRole ?? "USER", out var r_res))
+                if (Enum.TryParse<Role>(inputRole, out var r_res))
                 {
-                    result = new Person(email, r_res);
+                    result = new Person(email, r_res, inputName);
                 }
             }
         }

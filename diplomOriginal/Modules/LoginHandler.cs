@@ -14,6 +14,8 @@ namespace diplomOriginal.Login
     public class Person
     {
         public Person(string email, Role role) => (Email, Role) = (email, role);
+        public Person(string email, Role role, string name) : this(email, role) => Name = name;
+
         public string Email { get; set; } = "noemail";
         public string Name { get; set; } = "noname";
         public string Password { get; set; } = "password";

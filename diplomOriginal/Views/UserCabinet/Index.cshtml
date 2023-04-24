@@ -22,9 +22,9 @@
             </div>
         </div>
 
-        @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString() ?? null))
+        @if (!string.IsNullOrEmpty(TempData["ErrorMessage"]?.ToString() ?? null))
         {
-            <strong class="text-danger">@ViewData["ErrorMessage"]</strong>
+            <strong class="text-danger">@TempData["ErrorMessage"]</strong>
             <hr />
         }
 
@@ -33,22 +33,12 @@
             <div class="card mb-4 mx-auto">
                 <div class="card-header">Изменить информацию об аккаунте</div>
                 <div class="card-body">
-                    <form asp-controller="UserCabinet" asp-action="ChangeName">
+                    <form asp-controller="UserCabinet" asp-action="ChangeName" method="post">
                         <!-- Form Username-->
                         <div class="mb-3">
-                            <label class="small mb-1" for="inputUsername">Имя на сайте</label>
-                            <input required name="name" class="form-control" id="inputUsername" type="text" placeholder="Введите свое имя" value="@(Context.User.Identity?.Name ?? "Error")">
+                            <label class="small mb-1" for="enter-name-here">Имя на сайте</label>
+                            <input required class="form-control" name="newName" id="enter-name-here" type="text" placeholder="Введите свое имя" value="@(Context.User.Identity?.Name ?? "Error")">
                         </div>
-                        @*<!-- Form Email-->
-                        <div class="mb-3">
-                        <label class="small mb-1" for="inputEmailAddress">Электронная почта</label>
-                        <input class="form-control" id="inputEmailAddress" type="email" placeholder="Введите адрес электронной почты" value="name@example.com">
-                        </div>*@
-                        <!-- Form Phone number-->
-                        @*<div class="mb-3">
-                            <label class="small mb-1" for="inputPhone">Номер телефона</label>
-                            <input class="form-control" id="inputPhone" type="tel" placeholder="Введите номер телефона" value="+7 999 123 45 67">
-                        </div>*@
                         <!-- Save Button-->
                         <button class="btn btn-primary" type="submit">Сохранить изменения</button>
                     </form>
@@ -74,11 +64,11 @@
                     <hr />
                 }
                 <div class="card-body">
-                    <form id="change-password-form">
+                    <form asp-controller="UserCabinet" asp-action="ChangePassword" id="change-password-form">
                         <!-- Form Username-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inp_pass1_cabinet">Введите новый пароль</label>
-                            <input required onkeyup="OnPasswordsMatch();" class="form-control" id="inp_pass1_cabinet" type="password" placeholder="Введите новый пароль">
+                            <input required onkeyup="OnPasswordsMatch();" class="form-control" id="inp_pass1_cabinet" name="newPassword" type="password" placeholder="Введите новый пароль">
                         </div>
                         <!-- Form Phone number-->
                         <div class="mb-3">
@@ -91,7 +81,7 @@
                             </label>
                         </div>
                         <!-- Save Button-->
-                        <button class="btn btn-primary" id="change-password-button" disabled type="button">Сохранить изменения</button>
+                        <button class="btn btn-primary" id="change-password-button" disabled type="submit">Сохранить изменения</button>
                     </form>
                 </div>
             </div>

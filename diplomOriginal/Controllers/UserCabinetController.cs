@@ -1,4 +1,5 @@
-﻿using diplomOriginal.Models;
+﻿using diplomOriginal.Login;
+using diplomOriginal.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -20,17 +21,19 @@ namespace diplomOriginal.Controllers
         }
 
         [HttpPost]
-        public IActionResult ChangeName(string name)
+        public async Task<IActionResult> ChangeName(string newName)
         {
+            TempData["ErrorMessage"] = null;
+
             LoginViewModel vm = new LoginViewModel() { Email = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value ?? "_" };
-            if (Database.ChangeAccountName(vm, name).Result)
+            if (Database.ChangeAccountName(vm, newName).Result)
             {
-                return RedirectToAction("Index");
-            } else
-            {
-                ViewData["ErrorMessage"] = "Ошибка при изменении имени, свяжитесь с администратором";
-                return RedirectToAction("Index");
+                await LoginManager.Logout(HttpContext);
+                return Redirect("/login");
             }
+
+            TempData["ErrorMessage"] = "Ошибка при изменении имени, свяжитесь с администратором";
+            return RedirectToAction("Index");
         }
     }
 }
