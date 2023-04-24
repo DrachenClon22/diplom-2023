@@ -37,32 +37,98 @@ public static class Database
         }
     }
 
+    internal static async Task<bool> ChangeAccountPassword(LoginViewModel account, string newPassword)
+    {
+        if (DoesAccountExist(account.Email).Result)
+        {
+            try
+            {
+                using (var connection = new MySqlConnection(_connection))
+                {
+                    await connection.OpenAsync();
+
+                    using var command = new MySqlCommand($"UPDATE user SET password=\"{Encryption.EncodePasswordToBase64(newPassword)}\"" +
+                        $"WHERE email=\"{account.Email}\"");
+                    await command.ExecuteNonQueryAsync();
+
+                    return true;
+                }
+
+            }
+            catch (Exception e)
+            {
+                await Console.Out.WriteLineAsync($"Error occured: {e.Message}");
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public static async Task<bool> ChangeAccountName(LoginViewModel account, string newName)
+    {
+        if (DoesAccountExist(account.Email).Result)
+        {
+            try
+            {
+                using (var connection = new MySqlConnection(_connection))
+                {
+                    await connection.OpenAsync();
+
+                    using var command = new MySqlCommand($"UPDATE user SET name=\"{newName}\"" +
+                        $"WHERE email=\"{account.Email}\"");
+                    await command.ExecuteNonQueryAsync();
+
+                    return true;
+                }
+
+            }
+            catch (Exception e)
+            {
+                await Console.Out.WriteLineAsync($"Error occured: {e.Message}");
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     public static async Task<bool> AddAccountToDB(LoginViewModel account)
     {
-        try
+        if (!DoesAccountExist(account.Email).Result)
         {
-            // Remove later
-            if (account.Email.Equals("banned@gmail.com"))
+            try
             {
-                throw new Exception("Test Exception");
-            }
+                // Remove later
+                if (account.Email.Equals("banned@gmail.com"))
+                {
+                    throw new Exception("Test Exception");
+                }
 
-            using (var connection = new MySqlConnection(_connection))
+                using (var connection = new MySqlConnection(_connection))
+                {
+                    await connection.OpenAsync();
+
+                    using var command = new MySqlCommand($"INSERT INTO user (email, password, role) VALUES " +
+                        $"(\"{account.Email}\"," +
+                        $" \"{Encryption.EncodePasswordToBase64(account.Password)}\", \"{Role.USER}\");", connection);
+                    await command.ExecuteNonQueryAsync();
+
+                    return true;
+                }
+
+            }
+            catch (Exception e)
             {
-                await connection.OpenAsync();
-
-                using var command = new MySqlCommand($"INSERT INTO user (email, password, role) VALUES " +
-                    $"(\"{account.Email}\"," +
-                    $" \"{Encryption.EncodePasswordToBase64(account.Password)}\", \"{Role.USER}\");", connection);
-                await command.ExecuteNonQueryAsync();
-
-                return true;
+                await Console.Out.WriteLineAsync($"Error occured: {e.Message}");
+                return false;
             }
-
-        }
-        catch (Exception e)
+        } else
         {
-            await Console.Out.WriteLineAsync($"Error occured: {e.Message}");
             return false;
         }
     }

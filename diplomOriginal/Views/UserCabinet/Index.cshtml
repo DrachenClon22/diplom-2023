@@ -1,4 +1,5 @@
-﻿@{
+﻿@using diplomOriginal.Login;
+@{
 	ViewData["Title"] = "Личный кабинет";
 }
 
@@ -20,16 +21,23 @@
                 <strong>ВНИМАНИЕ!</strong> Раздел не готов! Функциональность не гарантирована!
             </div>
         </div>
+
+        @if (!string.IsNullOrEmpty(ViewData["ErrorMessage"]?.ToString() ?? null))
+        {
+            <strong class="text-danger">@ViewData["ErrorMessage"]</strong>
+            <hr />
+        }
+
         <!-- Change info form -->
         <div class="col-lg-6 mx-auto">
             <div class="card mb-4 mx-auto">
                 <div class="card-header">Изменить информацию об аккаунте</div>
                 <div class="card-body">
-                    <form>
+                    <form asp-controller="UserCabinet" asp-action="ChangeName">
                         <!-- Form Username-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inputUsername">Имя на сайте</label>
-                            <input class="form-control" id="inputUsername" type="text" placeholder="Введите свое имя" value="@(Context.User.Identity?.Name ?? "Error")">
+                            <input required name="name" class="form-control" id="inputUsername" type="text" placeholder="Введите свое имя" value="@(Context.User.Identity?.Name ?? "Error")">
                         </div>
                         @*<!-- Form Email-->
                         <div class="mb-3">
@@ -42,7 +50,7 @@
                             <input class="form-control" id="inputPhone" type="tel" placeholder="Введите номер телефона" value="+7 999 123 45 67">
                         </div>*@
                         <!-- Save Button-->
-                        <button class="btn btn-primary" type="button">Сохранить изменения</button>
+                        <button class="btn btn-primary" type="submit">Сохранить изменения</button>
                     </form>
                 </div>
             </div>
