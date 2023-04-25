@@ -4,6 +4,14 @@
 }
 
 <div class="container px-4 py-5 my-5">
+    @*<!-- Alert "site is in debug mode" -->
+    <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show mb-3 mx-auto" role="alert">
+        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+        <div>
+            <button type="button" data-bs-dismiss="alert" class="btn-close" aria-label="Close"></button>
+            <strong>ВНИМАНИЕ!</strong> Раздел не готов! Функциональность не гарантирована!
+        </div>
+    </div>*@
     <form method="post" asp-controller="Contacts">
         <h1 class="display-5 fw-bold text-body-emphasis text-center">Обратная связь</h1>
         <div class="text-center">@ViewData["Message"]</div>

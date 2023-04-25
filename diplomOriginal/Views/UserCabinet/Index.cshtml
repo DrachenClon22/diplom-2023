@@ -13,15 +13,6 @@
 
     <hr class="mt-0 mb-4">
     <div class="row mx-auto">
-        <!-- Alert "site is in debug mode" -->
-        <div class="alert alert-warning d-flex align-items-center alert-dismissible fade show mb-3 mx-auto" role="alert">
-            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
-            <div>
-                <button type="button" data-bs-dismiss="alert" class="btn-close" aria-label="Close"></button>
-                <strong>ВНИМАНИЕ!</strong> Раздел не готов! Функциональность не гарантирована!
-            </div>
-        </div>
-
         @if (!string.IsNullOrEmpty(TempData["ErrorMessage"]?.ToString() ?? null))
         {
             <strong class="text-danger">@TempData["ErrorMessage"]</strong>
@@ -58,19 +49,19 @@
         <div class="col-lg-6 mx-auto">
             <div class="card mb-4 mx-auto">
                 <div class="card-header">Изменить пароль</div>
-                @if (!string.IsNullOrEmpty(ViewData["ChangePasswordError"]?.ToString() ?? null))
+                @if (!string.IsNullOrEmpty(TempData["SuccessMessage"]?.ToString() ?? null))
                 {
-                    <strong class="text-danger">@ViewData["ChangePasswordError"]</strong>
-                    <hr />
+                    // TempData shows strange results so if success message is not null hardcode the message
+                    <script>alert("Пароль успешно изменен")</script>
                 }
                 <div class="card-body">
                     <form asp-controller="UserCabinet" asp-action="ChangePassword" id="change-password-form">
-                        <!-- Form Username-->
+                        <!-- Form Password-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inp_pass1_cabinet">Введите новый пароль</label>
                             <input required onkeyup="OnPasswordsMatch();" class="form-control" id="inp_pass1_cabinet" name="newPassword" type="password" placeholder="Введите новый пароль">
                         </div>
-                        <!-- Form Phone number-->
+                        <!-- Form New Password-->
                         <div class="mb-3">
                             <label class="small mb-1" for="inp_pass2_cabinet">Повторите новый пароль</label>
                             <input required onkeyup="OnPasswordsMatch();" class="form-control" id="inp_pass2_cabinet" type="password" placeholder="Повторите новый пароль">
