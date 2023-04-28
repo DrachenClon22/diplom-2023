@@ -46,7 +46,7 @@ namespace diplomOriginal.Controllers
             LoginViewModel vm = new LoginViewModel() { Email = HttpContext.User.FindFirst(ClaimTypes.Email)?.Value ?? "_" };
             if (Database.ChangeAccountPassword(vm, newPassword).Result)
             {
-                // Stub variable, value doesnt change anything
+                // Stub variable, value doesnt affect anything
                 TempData["SuccessMessage"] = "Пароль успешно изменен"; // Password changed
                 return RedirectToAction("Index");
             }
