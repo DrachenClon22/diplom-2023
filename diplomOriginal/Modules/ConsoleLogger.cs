@@ -47,7 +47,7 @@
                     }
             }
 
-            Console.WriteLine($"[{status}] [{DateTime.Now.ToString("d")}] {message}");
+            Console.WriteLine($"[{status}] {DateTime.Now.ToString("[yyyy.MM.dd] [HH:mm:ss]")} {message}");
 
             Console.ResetColor();
         }

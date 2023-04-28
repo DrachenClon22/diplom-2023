@@ -149,6 +149,8 @@ public static class Database
                         command.Connection = connection;
                         await command.ExecuteNonQueryAsync();
 
+                        ConsoleLogger.Log($"New user registered: {account.Email}");
+
                         return true;
                     }
                 } else
@@ -159,7 +161,7 @@ public static class Database
             }
             catch (Exception e)
             {
-                await Console.Out.WriteLineAsync($"Error occured: {e.Message}");
+                ConsoleLogger.Log(LogStatus.ERROR, $"Error occured: {e.Message}");
                 return false;
             }
         } else
@@ -204,7 +206,7 @@ public static class Database
             }
         } else
         {
-            await Console.Out.WriteLineAsync($"SQL Injection. Access denied. -> {email}");
+            ConsoleLogger.Log(LogStatus.WARNING, $"SQL Injection. Access denied. -> {email}");
         }
 
         return result;

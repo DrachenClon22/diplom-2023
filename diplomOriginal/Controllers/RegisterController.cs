@@ -19,7 +19,6 @@ namespace diplomOriginal.Controllers
 
         public async Task<IActionResult> RegisterMe(LoginViewModel account)
         {
-            await Console.Out.WriteLineAsync($"email:{account.Email} || password: {account.Password}");
             ViewData["RegisterError"] = string.Empty;
             
             if (ModelState.IsValid)
