@@ -33,7 +33,7 @@ namespace diplomOriginal.Controllers
                 return Redirect("/login");
             }
 
-            TempData["ErrorMessage"] = "Ошибка при изменении имени, свяжитесь с администратором";
+            TempData["ErrorMessage"] = "Ошибка при изменении имени, попробуйте еще раз";
             return RedirectToAction("Index");
         }
 
