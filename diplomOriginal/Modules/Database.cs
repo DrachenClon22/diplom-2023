@@ -79,7 +79,7 @@ public static class Database
             }
             catch (Exception e)
             {
-                await Console.Out.WriteLineAsync($"Error occured: {e.Message}");
+                ConsoleLogger.Log(LogStatus.WARNING, $"Error occured: {e.Message}");
                 return false;
             }
         }
@@ -115,7 +115,7 @@ public static class Database
             }
             catch (Exception e)
             {
-                await Console.Out.WriteLineAsync($"Error occured: {e.Message}");
+                ConsoleLogger.Log(LogStatus.WARNING, $"Error occured: {e.Message}");
                 return false;
             }
         }
