@@ -1,5 +1,34 @@
 ﻿@{
-    ViewData["Title"] = "Категории товаров";
+    ViewData["Title"] = "Товары";
 }
 
-<h1 class="text-center">Категории товаров</h1>
+<div class="py-5 text-center">
+    <h1 class="display-5 fw-bold text-body-emphasis">Товары</h1>
+</div>
+
+<div class="container-xl">
+    <div class="row hidden-md-up">
+        @{
+            // Here can get the repositoory to work with
+            // Like Repo repo = new Repo();
+            // using foreach to get next item using ienumerable
+            Random random = new Random();
+        }
+        @for (int i = 0; i < 12; i++) 
+        // Add class with repository of all items and get em when page is loading
+        // Not just 12
+        {
+            <div class="col-md-4">
+                <div class="card mb-4 mx-auto">
+                    <div class="card-body">
+                        <h5 class="card-title">@($"Заголовок {random.Next(1000, 10000)}")</h5> <!-- Here be like (using foreach) (item.title) -->
+                        <h6 class="card-subtitle mb-2 text-muted">@($"Артикул: {random.Next(0, 100)}")</h6> <!-- item.partNumber -->
+                        <h6 class="card-subtitle mb-2 text-muted">@("Цена:") <strong>@(random.Next(1000, 100000))</strong> @("₽")</h6> <!-- item.price -->
+                        <p class="card-text">@($"Процент чего-то: {random.Next(0, 100)}%")</p> <!-- item.description -->
+                        <a href="#" class="card-link">Добавить в корзину</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
