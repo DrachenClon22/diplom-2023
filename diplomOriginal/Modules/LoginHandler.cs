@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using System.Security.Claims;
+using diplomOriginal.Modules;
 
 namespace diplomOriginal.Login
 {
@@ -55,6 +56,7 @@ namespace diplomOriginal.Login
         {
             try
             {
+                ShoppingCart.Clear();
                 await context.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
                 return true;
             }

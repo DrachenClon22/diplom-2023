@@ -22,7 +22,7 @@
                 ConsoleLogger.Log(LogStatus.WARNING, $"Shopping Cart, amount of items: {items.Length}");
                 foreach (var item in items)
                 {
-                    ConsoleLogger.Log(LogStatus.WARNING, $"{item.Name} - {Database.GetPrice(item.PartNumber)}");
+                    ConsoleLogger.Log(LogStatus.WARNING, $"{item.Name} - {Database.GetPrice(item.PartNumber).Result} RUR");
                 }
             } else
             {
