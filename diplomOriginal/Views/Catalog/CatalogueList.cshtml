@@ -1,4 +1,5 @@
-﻿@{
+﻿@using diplomOriginal.Modules;
+@{
     ViewData["Title"] = "Товары";
 }
 
@@ -9,30 +10,42 @@
 <div class="container-xl">
     <div class="row hidden-md-up">
         @{
-            // Here can get the repositoory to work with
-            // Like Repo repo = new Repo();
-            // using foreach to get next item using ienumerable
-            Random random = new Random();
+            Item[]? items = ItemsRepository.GetAllItems().Result;
         }
-        @for (int i = 0; i < 12; i++) 
-        // Add class with repository of all items and get em when page is loading
-        // Not just 12
+        @if (items is not null)
+        {
+            @foreach(var item in items)
+            {
+                <div class="col-md-4">
+                    <div class="shadow border rounded-3 card mb-4 mx-auto">
+                        <div class="card-body">
+                            <h5 class="card-title">@(item.Name)</h5> <!-- Here be like (using foreach) (item.title) -->
+                            <h6 class="card-subtitle mb-2 text-muted">@(item.PartNumber)</h6> <!-- item.partNumber -->
+                            <h6 class="card-subtitle mb-2 text-muted">
+                                @{
+
+                                }
+                            </h6> <!-- item.price -->
+                            <p class="card-text">@(item.Description)</p> <!-- item.description -->
+                            @if (LoginManager.IsUserIn(Context))
+                            {
+                                <a href="#" class="card-link">Добавить в корзину</a>
+                            }
+                            else
+                            {
+                                <p class="card-text">Для покупки свяжитесь с нами: <strong>+79817511074</strong></p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        } else
         {
             <div class="col-md-4">
                 <div class="shadow border rounded-3 card mb-4 mx-auto">
                     <div class="card-body">
-                        <h5 class="card-title">@($"Заголовок {random.Next(1000, 10000)}")</h5> <!-- Here be like (using foreach) (item.title) -->
-                        <h6 class="card-subtitle mb-2 text-muted">@($"Артикул: {random.Next(0, 100)}")</h6> <!-- item.partNumber -->
-                        <h6 class="card-subtitle mb-2 text-muted">@("Цена:") <strong>@(random.Next(1000, 100000))</strong> @("₽")</h6> <!-- item.price -->
-                        <p class="card-text">@($"Процент чего-то: {random.Next(0, 100)}%")</p> <!-- item.description -->
-                        
-                        @if (LoginManager.IsUserIn(Context))
-                        {
-                            <a href="#" class="card-link">Добавить в корзину</a>
-                        } else
-                        {
-                            <p class="card-text">Для покупки свяжитесь с нами: <strong>+79817511074</strong></p>
-                        }
+                        <h5 class="card-title">Товаров не найдено</h5>
+                        <p class="card-text">Возможно произошла какая-то ошибка, попробуйте обновить страницу</p>
                     </div>
                 </div>
             </div>
