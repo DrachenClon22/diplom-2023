@@ -1,5 +1,6 @@
 using diplomOriginal.Controllers;
 using diplomOriginal.Models;
+using diplomOriginal.Modules;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
