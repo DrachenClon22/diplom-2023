@@ -25,6 +25,10 @@ namespace diplomOriginal.Login
 
     public static class LoginManager
     {
+        public static bool IsUserIn(HttpContext context)
+        {
+            return context.User.Identity?.IsAuthenticated ?? false;
+        }
         public static async Task<bool> Login(HttpContext context, LoginViewModel account)
         {
             Person? person = Database.GetPerson(account.Email, account.Password).Result;
