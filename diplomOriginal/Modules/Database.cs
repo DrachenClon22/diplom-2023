@@ -3,6 +3,8 @@ using diplomOriginal.Models;
 using diplomOriginal.Modules;
 using diplomOriginal.Login;
 using MySqlConnector;
+using static System.Net.Mime.MediaTypeNames;
+using System.Data;
 
 public static class Database
 {
@@ -36,6 +38,24 @@ public static class Database
         return true;
     }
 
+    public static async Task<int> GetPrice(string id)
+    {
+        using (var connection = new MySqlConnection(_connection))
+        {
+            await connection.OpenAsync();
+
+            using var command = new MySqlCommand($"SELECT price FROM items WHERE partNumber=\"{id}\";", connection);
+            command.Connection = connection;
+            using var reader = await command.ExecuteReaderAsync();
+
+            while (await reader.ReadAsync())
+            {
+                return reader.GetInt32("price");
+            }
+        }
+
+        return 0;
+    }
     public static async Task<bool> DoesAccountExist(string email)
     {
         if (CheckForSQLInjection(email))
