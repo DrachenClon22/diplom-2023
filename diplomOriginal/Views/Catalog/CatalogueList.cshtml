@@ -25,7 +25,14 @@
                         <h6 class="card-subtitle mb-2 text-muted">@($"Артикул: {random.Next(0, 100)}")</h6> <!-- item.partNumber -->
                         <h6 class="card-subtitle mb-2 text-muted">@("Цена:") <strong>@(random.Next(1000, 100000))</strong> @("₽")</h6> <!-- item.price -->
                         <p class="card-text">@($"Процент чего-то: {random.Next(0, 100)}%")</p> <!-- item.description -->
-                        <a href="#" class="card-link">Добавить в корзину</a>
+                        
+                        @if (LoginManager.IsUserIn(Context))
+                        {
+                            <a href="#" class="card-link">Добавить в корзину</a>
+                        } else
+                        {
+                            <p class="card-text">Для покупки свяжитесь с нами: <strong>+79817511074</strong></p>
+                        }
                     </div>
                 </div>
             </div>
