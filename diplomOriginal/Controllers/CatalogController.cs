@@ -1,4 +1,5 @@
 ﻿using diplomOriginal.Models;
+using diplomOriginal.Modules;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -33,6 +34,13 @@ namespace diplomOriginal.Controllers
             {
                 return View("CatalogueList");
             }
+        }
+
+        [HttpPost]
+        public IActionResult AddToCart(string id, string prevIp)
+        {
+            
+            return Redirect(prevIp ?? "/");
         }
     }
 }

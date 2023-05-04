@@ -47,7 +47,7 @@ app.UseAuthorization();
 #region ROUTING
 app.MapControllerRoute(
     name: "catalog",
-    pattern: "catalog/{catalog?}/{id?}",
+    pattern: "catalog/{action}",
     defaults: new { controller = "Catalog", action = "Index" });
 
 app.MapControllerRoute(
