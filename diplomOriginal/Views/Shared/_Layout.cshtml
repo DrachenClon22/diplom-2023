@@ -133,13 +133,16 @@
                     </li>
                 </ul>
                 <div class="search-and-icons">
-                    <form class="d-flex mb-2 me-4" role="search">
-                        <input disabled class="form-control me-2" type="search" aria-label="Search">
+                    <form action="http://www.google.com/search" method="get" class="d-flex mb-2 me-4" role="search">
+                        <input class="form-control me-2" name="q" type="search" aria-label="Search">
                     </form>
                     <div class="user-icons d-flex mb-2">
-                        <div class="account"><i class="bi bi-person"></i></div>
-                        <div class="wishlist"><i class="bi bi-heart"></i></div>
-                        <div class="cart"><i class="bi bi-cart3"></i></div>
+                        @if (LoginManager.IsUserIn(Context))
+                        {
+                            <div class="account"><a class="link-dark" href="/cabinet"><i class="bi bi-person"></i></a></div>
+                        }
+                        <div class="wishlist"><a class="link-dark" href="/"><i class="bi bi-heart"></i></a></div>
+                        <div class="cart"><a class="link-dark" href="/"><i class="bi bi-cart3"></i></a></div>
                     </div>
                 </div>
                 <div class="contact-info">

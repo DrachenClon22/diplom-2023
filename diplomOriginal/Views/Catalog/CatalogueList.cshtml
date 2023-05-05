@@ -27,18 +27,7 @@
                                 </strong> ₽</h6>
                             <p class="card-text">@(item.Description)</p>
                             <p class="card-text">Для покупки свяжитесь с нами: <strong>+79817511074</strong></p>
-                            @*@if (LoginManager.IsUserIn(Context))
-                            {
-                                <form asp-controller="Catalog" asp-action="AddToCart" method="post">
-                                    <input type="hidden" name="id" value="@item.PartNumber" />
-                                    <input type="hidden" name="prevIp" value="@Context.Request.Path" />
-                                    <input type="submit" class="rounded-3" value="Добавить в корзину" />
-                                </form>
-                            }
-                            else
-                            {
-                                <p class="card-text">Для покупки свяжитесь с нами: <strong>+79817511074</strong></p>
-                            }*@
+                            <!-- sh -->
                         </div>
                     </div>
                 </div>
@@ -56,3 +45,17 @@
         }
     </div>
 </div>
+
+
+@*@if (LoginManager.IsUserIn(Context))
+                            {
+                                <form asp-controller="Catalog" asp-action="AddToCart" method="post">
+                                    <input type="hidden" name="id" value="@item.PartNumber" />
+                                    <input type="hidden" name="prevIp" value="@Context.Request.Path" />
+                                    <input type="submit" class="rounded-3" value="Добавить в корзину" />
+                                </form>
+                            }
+                            else
+                            {
+                                <p class="card-text">Для покупки свяжитесь с нами: <strong>+79817511074</strong></p>
+                            }*@
