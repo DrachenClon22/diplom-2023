@@ -28,7 +28,7 @@
                             <p class="card-text">@(item.Description)</p>
                             @if (LoginManager.IsUserIn(Context))
                             {
-                                <form asp-controller="Catalog" asp-action="AddToCart" asp-page-handler="" method="post">
+                                <form asp-controller="Catalog" asp-action="AddToCart" method="post">
                                     <input type="hidden" name="id" value="@item.PartNumber" />
                                     <input type="hidden" name="prevIp" value="@Context.Request.Path" />
                                     <input type="submit" class="rounded-3" value="Добавить в корзину" />
