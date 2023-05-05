@@ -38,7 +38,7 @@ public static class Database
         return true;
     }
 
-    public static async Task<int> GetPrice(string id)
+    public static async Task<int?> GetPrice(string id)
     {
         using (var connection = new MySqlConnection(_connection))
         {
@@ -54,7 +54,7 @@ public static class Database
             }
         }
 
-        return 0;
+        return null;
     }
     public static async Task<bool> DoesAccountExist(string email)
     {

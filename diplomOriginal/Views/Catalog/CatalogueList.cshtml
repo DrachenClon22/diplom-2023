@@ -23,10 +23,11 @@
                             <h6 class="card-subtitle mb-2 text-muted">Артикул: @(item.PartNumber)</h6>
                             <h6 class="card-subtitle mb-2 text-muted">
                                 <strong>
-                                    @(Database.GetPrice(item.PartNumber).Result)
+                                    @(Database.GetPrice(item.PartNumber).Result?.ToString() ?? "Цену уточните у менеджера")
                                 </strong> ₽</h6>
                             <p class="card-text">@(item.Description)</p>
-                            @if (LoginManager.IsUserIn(Context))
+                            <p class="card-text">Для покупки свяжитесь с нами: <strong>+79817511074</strong></p>
+                            @*@if (LoginManager.IsUserIn(Context))
                             {
                                 <form asp-controller="Catalog" asp-action="AddToCart" method="post">
                                     <input type="hidden" name="id" value="@item.PartNumber" />
@@ -37,7 +38,7 @@
                             else
                             {
                                 <p class="card-text">Для покупки свяжитесь с нами: <strong>+79817511074</strong></p>
-                            }
+                            }*@
                         </div>
                     </div>
                 </div>
